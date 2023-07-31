@@ -10,7 +10,7 @@ function StockDetail() {
   const symbol = location.state?.symbol;
   console.log(symbol)
   async function fetch_symbol_detail() {
-    let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=BG4QYKWU78ST5GB3`;
+    let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=JOKELXR13NHEVT6A`;
     let res = await axios.get(url);
     let stockdata = res.data
     if ("Meta Data" in res.data) {
