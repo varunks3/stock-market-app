@@ -5,16 +5,18 @@ import Chart from "react-apexcharts";
 
 function StockDetail() {
   const [seriesdata, setseriesdata] = useState();
+  const [error, seterror] = useState('')
   const location = useLocation();
   const symbol = location.state?.symbol;
+  console.log(symbol)
   async function fetch_symbol_detail() {
     let url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=VUHJV3BGICP2P9CY`;
     let res = await axios.get(url);
     let stockdata = res.data
     if ("Meta Data" in res.data) {
     const timeOpenArray = [];
-    for (let timestamp in stockdata["Time Series (5min)"]) {
-      let openValue = stockdata["Time Series (5min)"][timestamp]["1. open"];
+    for (let timestamp in stockdata["Time Series (1min)"]) {
+      let openValue = stockdata["Time Series (1min)"][timestamp]["1. open"];
       timeOpenArray.push([
         new Date(timestamp).getTime(),
         parseFloat(openValue),
@@ -23,6 +25,7 @@ function StockDetail() {
     setseriesdata(timeOpenArray);
     console.log("seriesdata", timeOpenArray);
     } else {
+      seterror("Stock detail not found")
       console.log("error", res.data);
     }
   };
@@ -54,7 +57,7 @@ function StockDetail() {
             />
           ) : (
             <></>
-          )}
+          )}{error?(<p>{error}</p>):(<></>)}
         </div>
         </div>
     </>
