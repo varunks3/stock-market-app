@@ -41,6 +41,7 @@ function StockDetail() {
     <div className=" flex items-center justify-center h-screen w-100">
         <div  >
           {seriesdata && seriesdata.length !== 0 ? (
+            <>
             <Chart
               series={[
                 {
@@ -55,6 +56,8 @@ function StockDetail() {
               }}
               width="500"
             />
+                <p> Stock Details</p>
+                </>
           ) : (
             <></>
           )}{error?(<p>{error}</p>):(<></>)}
